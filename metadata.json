@@ -1,0 +1,9 @@
+{
+  "name": "AI Viral Clipper Pro",
+  "description": "Android AI video clip suggestion and on-device MP4 trimming app.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "ANDROID_ON_DEVICE_VIDEO_TRIMMING",
+    "GEMINI_VIDEO_ANALYSIS"
+  ]
+}
