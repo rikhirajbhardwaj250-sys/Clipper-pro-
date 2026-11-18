@@ -3,9 +3,7 @@ name: Build AI Viral Clipper Pro APK
 on:
   workflow_dispatch:
   push:
-    branches:
-      - main
-      - master
+    branches: [main, master]
 
 permissions:
   contents: read
@@ -18,7 +16,7 @@ jobs:
   build:
     name: Build Android APK
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
 
     steps:
       - name: Checkout repository
@@ -30,21 +28,19 @@ jobs:
           distribution: temurin
           java-version: '21'
 
-      # This project intentionally uses the Gradle CLI because the supplied
-      # source tree has wrapper properties but does not contain gradlew/wrapper.jar.
       - name: Set up Gradle 9.3.1
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '9.3.1'
 
       - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Accept Android SDK licences
-        run: yes | sdkmanager --licenses >/dev/null || true
+        uses: android-actions/setup-android@v4
+        with:
+          packages: 'platform-tools'
 
       - name: Install Android SDK components
-        run: sdkmanager 'platform-tools' 'platforms;android-36' 'build-tools;36.0.0'
+        run: |
+          sdkmanager --install 'platforms;android-36' 'build-tools;36.0.0'
 
       - name: Create debug signing key
         run: |
